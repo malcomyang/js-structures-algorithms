@@ -9,9 +9,8 @@ function Push(element) {
     if (element == null || element == undefined){
         throw new Error('Can not push null or undefined to stack.');
     } else if (Array.isArray(element)){
-        for(let i = 0; i < element.length; i++){
-            this[dataSource][this[top]++] = element[i];
-        }
+        this[dataSource] = this[dataSource].concat(element);
+        this[top] += element.length;
     } else {
         this[dataSource][this[top]++] = element;
     }
@@ -34,15 +33,14 @@ function Clear() {
     this[top] = 0;
 }
 
-function SeedData(that, data){
-    if (data == null || data == undefined){
+function SeedData(that, element){
+    if (element == null || element == undefined){
         return false;
-    } else if (Array.isArray(data)){
-        for(let i = 0; i < data.length; i++){
-            that[dataSource][that[top]++] = data[i];
-        }
+    } else if (Array.isArray(element)){
+        that[dataSource] = that[dataSource].concat(element);
+        that[top] += element.length;
     } else {
-        that[dataSource][that[top]++] = data;
+        that[dataSource][that[top]++] = element;
     }
 }
 
