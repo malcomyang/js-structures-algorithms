@@ -17,64 +17,72 @@ const getPostOrder = Symbol('get postOrder');
 const isNode = Symbol('is node');
 const getSmallest = Symbol('get Smallest');
 const removeNode = Symbol('remove Node');
+
+function Insert (data){
+    if (Array.isArray(data)){
+        for (let i = 0; i < data.length; i++){
+            [push](data[i]);
+        }
+    } else {
+        this[push](data);
+    }
+}
+
+function Find (data){
+    let current = this.root;
+    while(current != null){
+        if (current.data == data){
+            return current;
+        } else if (data < current.data){
+            current = current.left;
+        } else {
+            current = current.right;s
+        }
+    }
+    return null;
+}
+
+function Remove (data) {
+    [removeNode](this.root, data);
+}
+
+function InOrder (node){
+    [isNode](node);
+    let box = [];
+    this[getInOrder](node, box);
+    return box;
+}
+
+function PreOrder (node){
+    [isNode](node);
+    let box = [];
+    this[getPreOrder](node, box);
+    return box;
+}
+
+function PostOrder (node){
+    [isNode](node);
+    let box = [];
+    [getPostOrder](node, box);
+    return box;
+}
+
 class BST {
     constructor (){
         this.root = null;
+        this.insert = Insert;
+        this.find = Find;
+        this.remove = Remove;
+        this.inOrder = InOrder;
+        this.preOrder = PreOrder;
+        this.postOrder = PostOrder;
     }
 
-    insert (data){
-        if (Array.isArray(data)){
-            for (let i = 0; i < data.length; i++){
-                [push](data[i]);
-            }
-        } else {
-            [push](data);
-        }
-    }
-
-    find (data){
-        let current = this.root;
-        while(current != null){
-            if (current.data == data){
-                return current;
-            } else if (data < current.data){
-                current = current.left;
-            } else {
-                current = current.right;s
-            }
-        }
-        return null;
-    }
-
-    remove (data) {
-        [removeNode](this.root, data);
-    }
-
-    inOrder (node){
-        [isNode](node);
-        let box = [];
-        this[getInOrder](node, box);
-        return box;
-    }
-
-    preOrder (node){
-        [isNode](node);
-        let box = [];
-        this[getPreOrder](node, box);
-        return box;
-    }
-
-    postOrder (node){
-        [isNode](node);
-        let box = [];
-        [getPostOrder](node, box);
-        return box;
-    }
-
+    
     [push] (data){
         let node = new Node(data, null, null);
         if (this.root == null){
-            this.root == node;
+            this.root = node;
         } else {
             let current = this.root;
             let parent;
@@ -166,4 +174,4 @@ class BST {
     }
 }
 
-export default BST;
+//export default BST;
