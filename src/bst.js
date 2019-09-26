@@ -1,12 +1,15 @@
+function Show(){
+    return this.data;
+}
+
 class Node {
     constructor (data, left, right){
+        if (data == null || data == undefined) throw new Error('Can not insert null or undefined.');
         this.data = data;
+        this.count = 1;
         this.left = left;
         this.right = right;
-    }
-
-    show () {
-        return this.data;
+        this.show = Show;
     }
 }
 
@@ -21,11 +24,27 @@ const removeNode = Symbol('remove Node');
 function Insert (data){
     if (Array.isArray(data)){
         for (let i = 0; i < data.length; i++){
-            [push](data[i]);
+            this[push](data[i]);
         }
     } else {
-        [push](data);
+        this[push](data);
     }
+}
+
+function GetMin(){
+    let current = this.root;
+    while(current.left != null){
+        current = current.left;
+    }
+    return current.data;
+}
+
+function GetMax(){
+    let current = this.root;
+    while(current.right != null){
+        current = current.right;
+    }
+    return current.data;
 }
 
 function Find (data){
@@ -68,20 +87,24 @@ function PostOrder (node){
 }
 
 class BST {
-    constructor (){
+    constructor (data){
         this.root = null;
         this.insert = Insert;
+        this.getMin = GetMin;
+        this.getMax = GetMax;
         this.find = Find;
         this.remove = Remove;
-        this.inorder = InOrder;
+        this.inOrder = InOrder;
         this.preOrder = PreOrder;
         this.postOrder = PostOrder;
+
+        this.insert(data);
     }
 
     [push] (data){
         let node = new Node(data, null, null);
         if (this.root == null){
-            this.root == node;
+            this.root = node;
         } else {
             let current = this.root;
             let parent;
@@ -93,12 +116,15 @@ class BST {
                         parent.left = node;
                         break;
                     }
-                } else {
+                } else if (data > current.data) {
                     current = current.right;
                     if (current == null){
                         parent.right = node;
                         break;
                     }
+                } else {
+                    current.count += 1;
+                    break;
                 }
             }
         }
